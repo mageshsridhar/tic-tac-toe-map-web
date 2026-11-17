@@ -134,6 +134,12 @@ h1{font:800 28px/1.15 var(--font);margin:0;letter-spacing:-.01em;white-space:now
 .badge img{height:var(--text-h,58px);width:auto;display:block}
 .credit small{display:block;font:800 12px/1.4 var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .credit strong{display:block;font:700 17px/1.3 var(--font)}
+/* the name links to the author's portfolio, with an outward arrow to show it leaves the page */
+.credit strong a{display:inline-flex;align-items:center;gap:4px;color:inherit;text-decoration:none;border-radius:6px}
+.credit strong a svg{width:15px;height:15px;stroke-width:2.6;color:var(--muted);transition:transform .2s ease,color .2s ease}
+.credit strong a:hover{text-decoration:underline;text-underline-offset:3px}
+.credit strong a:hover svg{transform:translate(2px,-2px);color:var(--fg)}
+.credit strong a:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
 .credit p{margin:0;color:var(--muted);font-size:13px}
 
 /* Map */
@@ -216,7 +222,7 @@ h1{font:800 28px/1.15 var(--font);margin:0;letter-spacing:-.01em;white-space:now
       </section>
       <section class="card credit" aria-label="Credits">
         <div class="badge" aria-hidden="true"><img src="avatar.png" alt=""></div>
-        <div id="credit-text"><small>Made by</small><strong>Magesh Sridhar</strong><p>Built with D3.js · Assisted by Claude Code</p></div>
+        <div id="credit-text"><small>Made by</small><strong><a href="https://mageshsridhar.github.io" target="_blank" rel="noopener" aria-label="Magesh Sridhar's portfolio (opens in a new tab)">Magesh Sridhar<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></a></strong><p>Built with D3.js · Assisted by Claude Code</p></div>
       </section>
     </div>
 
