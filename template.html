@@ -129,9 +129,9 @@ h1{font:800 28px/1.15 var(--font);margin:0;letter-spacing:-.01em;white-space:now
 
 /* Credit */
 .credit{display:flex;align-items:center;gap:14px;padding:18px}
-/* the author's memoji, peeking over a laptop from the bottom edge of the tile */
-.badge{width:44px;height:44px;display:flex;align-items:flex-end;justify-content:center;flex:none;overflow:hidden;background:var(--sunk);border-radius:var(--r-sm)}
-.badge img{height:40px;width:auto;display:block}
+/* the author's memoji, as tall as the lines of text beside it (--text-h is measured by script) */
+.badge{display:flex;flex:none}
+.badge img{height:var(--text-h,58px);width:auto;display:block}
 .credit small{display:block;font:800 12px/1.4 var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .credit strong{display:block;font:700 17px/1.3 var(--font)}
 .credit p{margin:0;color:var(--muted);font-size:13px}
@@ -215,8 +215,8 @@ h1{font:800 28px/1.15 var(--font);margin:0;letter-spacing:-.01em;white-space:now
         </div>
       </section>
       <section class="card credit" aria-label="Credits">
-        <div class="badge" aria-hidden="true"><img src="avatar.png" alt="" width="31" height="40"></div>
-        <div><small>Made by</small><strong>Magesh Sridhar</strong><p>Built with D3.js · Assisted by Claude Code</p></div>
+        <div class="badge" aria-hidden="true"><img src="avatar.png" alt=""></div>
+        <div id="credit-text"><small>Made by</small><strong>Magesh Sridhar</strong><p>Built with D3.js · Assisted by Claude Code</p></div>
       </section>
     </div>
 
@@ -284,7 +284,10 @@ function sizeLegend(){const cs=getComputedStyle(legendEl),w=legendEl.clientWidth
     if(s>best.s+.05)best={s,c}}
   const s=Math.max(4,best.s);
   legendEl.style.setProperty("--dot",s.toFixed(2)+"px");legendEl.style.setProperty("--gap",(s/4).toFixed(2)+"px");legendEl.style.setProperty("--cols",best.c)}
-new ResizeObserver(sizeLegend).observe(legendEl);fillsHeight.addEventListener("change",sizeLegend);
+new ResizeObserver(sizeLegend).observe(legendEl);
+// The credit's avatar matches the height of the text beside it, however many lines that text wraps to
+const creditText=document.getElementById("credit-text");
+new ResizeObserver(()=>document.querySelector(".badge").style.setProperty("--text-h",creditText.offsetHeight+"px")).observe(creditText);fillsHeight.addEventListener("change",sizeLegend);
 
 // On phones the map takes whatever height is left on screen below it (or beside the game, sideways)
 // Upright, the map is only as tall as its content (camera() sets that height).
